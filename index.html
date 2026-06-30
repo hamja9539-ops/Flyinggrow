@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FlyingGrow</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.55);
+}
+
+.card{
+position:relative;
+z-index:2;
+width:92%;
+max-width:420px;
+padding:25px;
+border-radius:25px;
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(18px);
+text-align:center;
+color:white;
+box-shadow:0 10px 35px rgba(0,0,0,.4);
+}
+
+.logo{
+font-size:55px;
+margin-bottom:10px;
+}
+
+h1{
+margin-bottom:5px;
+}
+
+.dev{
+color:#ddd;
+margin-bottom:20px;
+}
+
+.btn{
+width:100%;
+padding:15px;
+margin:8px 0;
+border:none;
+border-radius:15px;
+background:#229ED9;
+color:white;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.btn:hover{
+transform:scale(1.03);
+}
+
+.footer{
+margin-top:18px;
+font-size:13px;
+color:#ccc;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="card">
+
+<div class="logo">🚀</div>
+
+<h1>FlyingGrow</h1>
+
+<div class="dev">
+Developer : Amir Hamza
+</div>
+
+<button class="btn" onclick="showRewarded()">
+📺 Watch Rewarded Ad
+</button>
+
+<button class="btn" onclick="showInterstitial()">
+🎬 Interstitial Ad
+</button>
+
+<button class="btn" onclick="showTaskAd()">
+✅ Task Ad
+</button>
+
+<button class="btn" onclick="comingSoon()">
+🎁 Bonus
+</button>
+
+<button class="btn" onclick="comingSoon()">
+💰 Withdraw
+</button>
+
+<button class="btn" onclick="comingSoon()">
+📊 History
+</button>
+
+<div class="footer">
+FlyingGrow Mini App v1.0
+</div>
+
+</div>
+
+<script>
+
+const rewardedAd = window.Adsgram.init({
+blockId:"36732",
+debug:true,
+debugConsole:true
+});
+
+const interstitialAd = window.Adsgram.init({
+blockId:"int-36733",
+debug:true,
+debugConsole:true
+});
+
+const taskAd = window.Adsgram.init({
+blockId:"task-36734",
+debug:true,
+debugConsole:true
+});
+
+function showRewarded(){
+rewardedAd.show();
+}
+
+function showInterstitial(){
+interstitialAd.show();
+}
+
+function showTaskAd(){
+taskAd.show();
+}
+
+function comingSoon(){
+alert("Coming Soon");
+}
+
+</script>
+
+</body>
+</html>
