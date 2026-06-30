@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>FlyingGrow</title>
 
@@ -19,43 +19,33 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;
-height:100vh;
+background:linear-gradient(135deg,#0f172a,#1e3a8a,#06b6d4);
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-}
-
-.overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.55);
+padding:20px;
 }
 
 .card{
-position:relative;
-z-index:2;
-width:92%;
+width:100%;
 max-width:420px;
-padding:25px;
-border-radius:25px;
 background:rgba(255,255,255,.12);
-backdrop-filter:blur(18px);
+backdrop-filter:blur(20px);
+border-radius:25px;
+padding:25px;
 text-align:center;
 color:white;
 box-shadow:0 10px 35px rgba(0,0,0,.4);
 }
 
 .logo{
-font-size:55px;
+font-size:60px;
 margin-bottom:10px;
 }
 
 h1{
-margin-bottom:5px;
+margin-bottom:8px;
 }
 
 .dev{
@@ -65,34 +55,40 @@ margin-bottom:20px;
 
 .btn{
 width:100%;
-padding:15px;
+padding:16px;
 margin:8px 0;
 border:none;
 border-radius:15px;
 background:#229ED9;
-color:white;
+color:#fff;
 font-size:17px;
 font-weight:bold;
 cursor:pointer;
-transition:.3s;
 }
 
-.btn:hover{
-transform:scale(1.03);
+.btn2{
+background:#16a34a;
+}
+
+.btn3{
+background:#f59e0b;
 }
 
 .footer{
 margin-top:18px;
+color:#ddd;
 font-size:13px;
-color:#ccc;
+}
+
+.task{
+display:block;
+margin-top:12px;
 }
 
 </style>
-
 </head>
-<body>
 
-<div class="overlay"></div>
+<body>
 
 <div class="card">
 
@@ -108,19 +104,18 @@ Developer : Amir Hamza
 📺 Watch Rewarded Ad
 </button>
 
-<button class="btn" onclick="showInterstitial()">
+<button class="btn btn2" onclick="showInterstitial()">
 🎬 Interstitial Ad
 </button>
 
-<button class="btn" onclick="showTaskAd()">
-✅ Task Ad
-</button>
+<adsgram-task
+data-block-id="task-36734"
+data-debug="true"
+data-debug-console="true"
+class="task">
+</adsgram-task>
 
-<button class="btn" onclick="comingSoon()">
-🎁 Bonus
-</button>
-
-<button class="btn" onclick="comingSoon()">
+<button class="btn btn3" onclick="comingSoon()">
 💰 Withdraw
 </button>
 
@@ -131,43 +126,75 @@ Developer : Amir Hamza
 <div class="footer">
 FlyingGrow Mini App v1.0
 </div>
-
-</div>
-
 <script>
 
+// Telegram WebApp
+if (window.Telegram && Telegram.WebApp) {
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
+}
+
+// Rewarded Ad
 const rewardedAd = window.Adsgram.init({
-blockId:"36732",
-debug:true,
-debugConsole:true
+    blockId: "36732",
+    debug: true,
+    debugConsole: true
 });
 
+// Interstitial Ad
 const interstitialAd = window.Adsgram.init({
-blockId:"int-36733",
-debug:true,
-debugConsole:true
+    blockId: "int-36733",
+    debug: true,
+    debugConsole: true
 });
 
-const taskAd = window.Adsgram.init({
-blockId:"task-36734",
-debug:true,
-debugConsole:true
-});
-
-function showRewarded(){
-rewardedAd.show();
+// Rewarded
+async function showRewarded() {
+    try {
+        await rewardedAd.show();
+        alert("✅ Reward received!");
+    } catch (e) {
+        alert("Rewarded Ad unavailable.");
+        console.log(e);
+    }
 }
 
-function showInterstitial(){
-interstitialAd.show();
+// Interstitial
+async function showInterstitial() {
+    try {
+        await interstitialAd.show();
+    } catch (e) {
+        alert("Interstitial Ad unavailable.");
+        console.log(e);
+    }
 }
 
-function showTaskAd(){
-taskAd.show();
+// Coming Soon
+function comingSoon() {
+    alert("Coming Soon");
 }
 
-function comingSoon(){
-alert("Coming Soon");
+// Task Ad events
+const task = document.querySelector("adsgram-task");
+
+if (task) {
+
+    task.addEventListener("reward", () => {
+        alert("🎉 Task reward received!");
+    });
+
+    task.addEventListener("onError", (e) => {
+        console.log("Task Error:", e);
+    });
+
+    task.addEventListener("onBannerNotFound", () => {
+        alert("No Task available now.");
+    });
+
+    task.addEventListener("onTooLongSession", () => {
+        alert("Restart Telegram and try again.");
+    });
+
 }
 
 </script>
